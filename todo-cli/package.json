@@ -10,7 +10,9 @@
   "description": "My Application todo",
   "main": "todo.js",
   "scripts": {
-    "test": "jest",
+    "db:create:test": "NODE_ENV=test npx sequelize-cli db:create",
+    "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create",
+    "test": "jest --detectOpenHandles",
     "prepare": "cd .. && husky install todo-cli/.husky"
   },
   "lint-staged": {
@@ -23,6 +25,7 @@
   "license": "ISC",
   "devDependencies": {
     "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "sequelize-cli": "^6.6.2"
   }
 }
