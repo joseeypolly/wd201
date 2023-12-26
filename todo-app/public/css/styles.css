@@ -2,4 +2,7 @@ body {
   background-color: aquamarine;
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
+  align-items: center;
+  margin-left: 50px;
+  position: relative;
 }
