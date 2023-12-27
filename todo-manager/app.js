@@ -6,26 +6,22 @@ const path = require("path");
 app.use(bodyParser.json());
 
 //Set view Engine as EJS
-app.set("view engine","ejs");
+app.set("view engine", "ejs");
 
-app.get("/", async (request,response) => {
-  const Overdue = await Todo.getOverdues();
-  const DueToday = await Todo.getDuetoday();
-  const dueLater = await Todo.getDueLater();
-  if(request.accepts("html")){
-    response.render('index', {
-      Overdue,DueToday,dueLater
+app.get("/", async (request, response) => {
+  const allTodos = await Todo.getTodos();
+  if (request.accepts("html")) {
+    response.render("index", {
+      allTodos,
     });
-  }
-  else{
+  } else {
     response.json({
-      Overdue,DueToday,dueLater
+      allTodos,
     });
   }
-
 });
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/todos", async (request, response) => {
   const todos = await Todo.getTodos();
@@ -67,12 +63,11 @@ app.delete("/todos/:id", async (request, response) => {
   try {
     const deletedItem = await Todo.destroy({
       where: {
-        id: request.params.id
-      }
+        id: request.params.id,
+      },
     });
     response.send(deletedItem ? true : false);
-  } 
-  catch(error){
+  } catch (error) {
     console.error(error);
     return response.status(442).json(error);
   }
