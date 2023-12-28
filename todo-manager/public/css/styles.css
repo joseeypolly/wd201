@@ -1,8 +1,8 @@
-body{
-    background-color:mediumpurple;
-    font-family: 'Times New Roman', Times, serif;   
+body {
+  background-color: mediumpurple;
+  font-family: "Times New Roman", Times, serif;
 }
-table:hover .trash-icon{
-    display: block;
-    position: absolute;
+table:hover .trash-icon {
+  display: block;
+  position: absolute;
 }
