@@ -1,9 +1,8 @@
 body{
     background-color:mediumpurple;
-    font-family: sans-serif;   
+    font-family: 'Times New Roman', Times, serif;   
 }
 table:hover .trash-icon{
     display: block;
-    align-items: center;
-
+    position: absolute;
 }
