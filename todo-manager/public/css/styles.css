@@ -7,15 +7,15 @@ table:hover .trash-icon {
   position: absolute;
 }
 
-#Overdue:hover .trash-icon{
-   display: block;
-   align-items: center;
+#Overdue:hover .trash-icon {
+  display: block;
+  align-items: center;
 }
-#DueToday:hover .trash-icon{
-   display: block;
-   align-items: center;
+#DueToday:hover .trash-icon {
+  display: block;
+  align-items: center;
 }
-#dueLater:hover .trash-icon{
-   display: block;
-   align-items: center;
+#dueLater:hover .trash-icon {
+  display: block;
+  align-items: center;
 }
