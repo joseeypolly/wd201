@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 "use strict";
 const { Model, Op } = require("sequelize");
@@ -6,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The models/index file will call this method automatically.
      */
     static associate(models) {
       // define association here
@@ -16,36 +17,60 @@ module.exports = (sequelize, DataTypes) => {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
 
+    markAsCompleted() {
+      return this.update({ completed: true });
+    }
+
+    deletetodo() {
+      return this.removetask(id);
+    }
+
     static getTodos() {
-      return this.findAll();
+      return this.findAll({ order: [["id", "ASC"]] });
     }
 
-    static getOverdues() {
+    static overdue() {
       return this.findAll({
         where: {
           dueDate: {
-            [Op.lt]: new Date().toISOString().split("T")[0],
+            [Op.lt]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: false,
         },
+        order: [["id", "ASC"]],
       });
     }
 
-    static getDuetoday() {
-      return this.findAll({
-        where: {
-          dueDate: new Date().toISOString().split("T")[0],
-        },
-      });
-    }
-
-    static getDueLater() {
-      let tom = new Date().setDate(new Date().getDate() + 1);
+    static dueToday() {
       return this.findAll({
         where: {
           dueDate: {
-            [Op.gt]: tom,
+            [Op.eq]: new Date().toLocaleDateString("en-CA"),
           },
+          completed: false,
         },
+        order: [["id", "ASC"]],
+      });
+    }
+
+    static dueLater() {
+      return this.findAll({
+        where: {
+          dueDate: {
+            [Op.gt]: new Date().toLocaleDateString("en-CA"),
+          },
+          completed: false,
+        },
+        order: [["id", "ASC"]],
+      });
+    }
+
+    static completedItems() {
+      return this.findAll({
+        where: {
+          completed: true,
+        },
+        order: [["id", "ASC"]],
       });
     }
 
@@ -57,14 +82,9 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
+    setCompletionStatus(bool) {
+      return this.update({ completed: bool });
     }
-
-    static gettodo = async () => {
-      const todos = await Todo.findAll();
-      return todos;
-    };
   }
   Todo.init(
     {
