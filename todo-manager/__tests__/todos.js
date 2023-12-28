@@ -60,8 +60,8 @@ describe("Todo Application", function () {
       .get("/")
       .set("Accept", "application/json");
     const parsedGroupedResponse = JSON.parse(groupTodosResponse.text);
-    const dueTodayCount = parsedGroupedResponse.dueToday.length;
-    const latestTodo = parsedGroupedResponse.dueToday[dueTodayCount - 1];
+    const dueTodayCount = parsedGroupedResponse.DueToday.length;
+    const latestTodo = parsedGroupedResponse.DueToday[dueTodayCount - 1];
 
     res = await agent.get("/");
     csrfToken = extractCsrfToken(res);

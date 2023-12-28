@@ -1,5 +1,5 @@
 const express = require("express");
-var csrf = require("tiny-csrf");
+var csrf = require("csurf");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
@@ -8,7 +8,7 @@ const path = require("path");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("Shh!! some secret string"));
-app.use(csrf("this_could_be_32_character_long", ["POST","PUT", "DELETE"]));
+app.use(csrf({ cookie : true}));
 
 //Set view Engine as EJS
 app.set("view engine", "ejs");
